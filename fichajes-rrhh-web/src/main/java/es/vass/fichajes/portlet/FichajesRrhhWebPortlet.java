@@ -86,8 +86,8 @@ public class FichajesRrhhWebPortlet extends MVCPortlet {
 		for (Tarea t : totalTareas) {
 			if (mes==t.getHoraInicio().getMonth() && !t.getActiva()) {
 				esteMes.add(t);
-				
 			}
+			
 		}
 		request.setAttribute("tiposTarea", tiposTarea);
 		request.setAttribute("tareas", esteMes);
@@ -98,26 +98,13 @@ public class FichajesRrhhWebPortlet extends MVCPortlet {
 	
 	@ProcessAction(name = "buscarUsuario")
 	public void buscarUsuario(ActionRequest request, ActionResponse response) {
-		
-		final String userName = ParamUtil.getString(request, "nombreUsuario");
-			
-		List<TipoTarea> tiposTarea = TipoTareaLocalServiceUtil.getTipoTareas(0, Integer.MAX_VALUE);
 
-		List<Tarea> tareasUsuario = TareaLocalServiceUtil.findByUsuario(userName);
-		
-		request.setAttribute("tiposTarea", tiposTarea);
-		request.setAttribute("tareas", tareasUsuario);
-		request.setAttribute("usuario", tareasUsuario.get(0).getUserName());
-			
-		response.setRenderParameter("jspPage","/META-INF/resources/verFichajesUsuario.jsp");
-
-	}
-	
-	@ProcessAction(name = "buscarMesUsuario")
-	public void buscarMesUsuario(ActionRequest request, ActionResponse response) {
-		
 		final String userName = ParamUtil.getString(request, "nombreUsuario");
-		final int mes = ParamUtil.getInteger(request, "mes");
+		
+		Date hoy = new Date();
+		final int mes = hoy.getMonth();
+		
+		Long tiempoTrabajado = (long) 0;
 			
 		List<TipoTarea> tiposTarea = TipoTareaLocalServiceUtil.getTipoTareas(0, Integer.MAX_VALUE);
 
@@ -127,10 +114,61 @@ public class FichajesRrhhWebPortlet extends MVCPortlet {
 		for (Tarea t : tareasUsuario) {
 			if (mes==t.getHoraInicio().getMonth() && !t.getActiva()) {
 				esteMes.add(t);
-				
+				tiempoTrabajado += (t.getHoraFin().getTime()-t.getHoraInicio().getTime());
 			}
 		}
+		if (horasTrabajadas(tiempoTrabajado)<205) {
+			float parcial =  (((float)tiempoTrabajado/3600000)-horasTrabajadas(tiempoTrabajado));
+			request.setAttribute("horasTrabajadas", horasTrabajadas(tiempoTrabajado));
+			request.setAttribute("minutosTrabajados", minutosTrabajados(parcial));
+		}
+		else {
+			request.setAttribute("horasTrabajadas", 205);
+			request.setAttribute("minutosTrabajados", 00);
+			float parcialMinutosExtra =  (((float)tiempoTrabajado/3600000)-horasTrabajadas(tiempoTrabajado));
+			request.setAttribute("horasExtra", (horasTrabajadas(tiempoTrabajado)-205));
+			request.setAttribute("minutosExtra",  minutosTrabajados(parcialMinutosExtra));
+		}
+		request.setAttribute("tiposTarea", tiposTarea);
+		request.setAttribute("tareas", tareasUsuario);
+		request.setAttribute("usuario", tareasUsuario.get(0).getUserName());
+			
+		response.setRenderParameter("jspPage","/META-INF/resources/verFichajesUsuario.jsp");
+
+	}
+	
+	
+	
+	@ProcessAction(name = "buscarMesUsuario")
+	public void buscarMesUsuario(ActionRequest request, ActionResponse response) {
 		
+		final String userName = ParamUtil.getString(request, "nombreUsuario");
+		final int mes = ParamUtil.getInteger(request, "mes");
+		Long tiempoTrabajado = (long) 0;
+		
+		List<TipoTarea> tiposTarea = TipoTareaLocalServiceUtil.getTipoTareas(0, Integer.MAX_VALUE);
+
+		List<Tarea> tareasUsuario = TareaLocalServiceUtil.findByUsuario(userName);
+		List<Tarea> esteMes = new ArrayList<Tarea>();
+		
+		for (Tarea t : tareasUsuario) {
+			if (mes==t.getHoraInicio().getMonth() && !t.getActiva()) {
+				esteMes.add(t);	
+			}
+		}
+
+		if (horasTrabajadas(tiempoTrabajado)<205) {
+			float parcial =  (((float)tiempoTrabajado/3600000)-horasTrabajadas(tiempoTrabajado));
+			request.setAttribute("horasTrabajadas", horasTrabajadas(tiempoTrabajado));
+			request.setAttribute("minutosTrabajados", minutosTrabajados(parcial));
+		}
+		else {
+			request.setAttribute("horasTrabajadas", 205);
+			request.setAttribute("minutosTrabajados", 00);
+			float parcialMinutosExtra =  (((float)tiempoTrabajado/3600000)-horasTrabajadas(tiempoTrabajado));
+			request.setAttribute("horasExtra", (horasTrabajadas(tiempoTrabajado)-205));
+			request.setAttribute("minutosExtra",  minutosTrabajados(parcialMinutosExtra));
+		}
 		request.setAttribute("tiposTarea", tiposTarea);
 		request.setAttribute("tareas", esteMes);
 		request.setAttribute("usuario", tareasUsuario.get(0).getUserName());
@@ -195,6 +233,21 @@ public class FichajesRrhhWebPortlet extends MVCPortlet {
 			
 		response.setRenderParameter("jspPage","/META-INF/resources/view.jsp");
 
+	}
+	
+
+	public static Double formatearDecimales(Double numero, Integer numeroDecimales) {
+		return Math.round(numero * Math.pow(10, numeroDecimales)) / Math.pow(10, numeroDecimales);
+		}
+	
+	public static int horasTrabajadas(double tiempoTrabajado) {
+
+		return (int) ((float)tiempoTrabajado/3600000);
+	}
+	
+	public static int minutosTrabajados(double minutosTrabajados) {
+		double parcial = (minutosTrabajados*60/100);
+		return (int) (formatearDecimales(parcial, 2)*100);
 	}
 }
 

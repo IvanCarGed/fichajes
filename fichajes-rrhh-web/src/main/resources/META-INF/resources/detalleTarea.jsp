@@ -34,6 +34,9 @@
 					</tbody>
 				</table>
 			</c:when>
+			<c:otherwise>
+				<h1>No hemos encontrado la tarea</h1>
+			</c:otherwise>
 		</c:choose>
 		<div class="d-flex justify-content-around my-5">
 			<portlet:renderURL var="jspModificarTarea">

@@ -72,5 +72,8 @@
 			</div>
 		</div>
 	</c:when>
+	<c:otherwise>
+		<h1 class="text-center">No tenemos ningún fichaje asociado a este mes</h1>
+	</c:otherwise>
 </c:choose>
 		

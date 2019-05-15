@@ -41,6 +41,13 @@
 	<aui:input name="horaFin" type="text" label="Hora de Finalización:" value="${horaFin }" />
 	<aui:input name="latitdud" type="number" label="Latitud:" value="${tarea.latitud }" />
 	<aui:input name="longitud" type="number" label="Longitud:" value="${tarea.longitud }" />
-	
-	<aui:button name="modificarTareaButton" type="submit" value="Enviar" cssClass="d-flex mx-auto btn-success"/>
+	<div class="d-flex justify-content-around my-5">
+		<aui:button name="modificarTareaButton" type="submit" value="Enviar" cssClass="btn-primary col-4"/>
+		
+		<portlet:renderURL var="jspVolver">
+			<portlet:param name="mvcRenderCommandName" value="/volver" />				
+		</portlet:renderURL>
+		<a class="col-4 btn btn-success" href="${jspVolver}">Volver</a>
+	</div>
 </aui:form>
+

@@ -94,6 +94,25 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				
+				<div class="d-flex justify-content-center text-center my-5 mx-auto col-8">
+					<div class="col-12 d-flex flex-wrap">
+						<h1 class="text-center col-12">Tiempo Total Trabajado</h1>
+						<div class="col-6 my-3"><span class="font-weight-bold">Horas: </span>${horasTrabajadas }</div>
+						<div class="col-6 my-3"><span class="font-weight-bold">Minutos: </span>${minutosTrabajados }</div>
+					</div>
+				</div>
+				<c:choose>
+					<c:when test="${!empty minutosExtra }">
+						<div class="d-flex justify-content-center text-center my-5 mx-auto col-8">
+							<div class="col-12 d-flex flex-wrap">
+								<h1 class="text-center col-12">Estas son tus horas extra:</h1>
+								<div class="col-6 my-3"><span class="font-weight-bold">Horas: </span>${horasExtra }</div>
+								<div class="col-6 my-3"><span class="font-weight-bold">Minutos: </span>${minutosExtra }</div>
+							</div>
+						</div>
+					</c:when>
+				</c:choose>
 			</div>
 		</div>
 	</c:when>
