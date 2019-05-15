@@ -114,7 +114,6 @@ public class FichajesWebPortlet extends MVCPortlet {
 		final ThemeDisplay td = (ThemeDisplay) request.getAttribute(WebKeys.THEME_DISPLAY);
 		final int mes = ParamUtil.getInteger(request, "mes");
 		
-		
 		Long tiempoTrabajado = (long) 0;
 		
 		List<TipoTarea> tiposTarea = TipoTareaLocalServiceUtil.getTipoTareas(0, Integer.MAX_VALUE);

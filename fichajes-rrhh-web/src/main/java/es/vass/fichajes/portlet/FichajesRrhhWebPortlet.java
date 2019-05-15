@@ -148,6 +148,7 @@ public class FichajesRrhhWebPortlet extends MVCPortlet {
 
 		final Long tareaId = ParamUtil.getLong(request, "tareaId");
 		final Long userId = ParamUtil.getLong(request, "userId");
+		final Long tipoTareaId = ParamUtil.getLong(request, "tipoTareaId");
 		final Date fechaInicio = ParamUtil.getDate(request, "fechaInicio", format);
 		final String horaInicio = ParamUtil.getString(request, "horaInicio");
 		final Date fechaFin = ParamUtil.getDate(request, "fechaFin", format);
@@ -170,6 +171,7 @@ public class FichajesRrhhWebPortlet extends MVCPortlet {
 			Tarea tarea = TareaLocalServiceUtil.getTarea(tareaId);
 			tarea.setModifiedDate(hoy);
 			tarea.setUserId(empleado.getUserId());
+			tarea.setTipoTarea(tipoTareaId);
 			tarea.setUserName(empleado.getFirstName());
 			tarea.setHoraInicio(fechaInicio);
 			tarea.setHoraFin(fechaFin);
