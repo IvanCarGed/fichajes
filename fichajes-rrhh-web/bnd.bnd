@@ -1,0 +1,4 @@
+Bundle-Name: fichajes-rrhh-web
+Bundle-SymbolicName: es.vass.fichajes.rrhh
+Bundle-Version: 1.0.0
+Export-Package: es.vass.fichajes.constants

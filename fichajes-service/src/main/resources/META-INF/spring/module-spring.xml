@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<beans
+	default-destroy-method="destroy"
+	default-init-method="afterPropertiesSet"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+>
+	<bean class="es.vass.fichajes.service.impl.TareaLocalServiceImpl" id="es.vass.fichajes.service.TareaLocalService" />
+	<bean class="es.vass.fichajes.service.persistence.impl.TareaPersistenceImpl" id="es.vass.fichajes.service.persistence.TareaPersistence" parent="basePersistence" />
+	<bean class="es.vass.fichajes.service.impl.TipoTareaLocalServiceImpl" id="es.vass.fichajes.service.TipoTareaLocalService" />
+	<bean class="es.vass.fichajes.service.persistence.impl.TipoTareaPersistenceImpl" id="es.vass.fichajes.service.persistence.TipoTareaPersistence" parent="basePersistence" />
+</beans>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="es.vass.fichajes.model.Tarea">
+		<field name="tareaId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="horaInicio" type="Date" />
+		<field name="horaFin" type="Date" />
+		<field name="activa" type="boolean" />
+		<field name="latitud" type="double" />
+		<field name="longitud" type="double" />
+		<field name="tipoTarea" type="long" />
+	</model>
+	<model name="es.vass.fichajes.model.TipoTarea">
+		<field name="tipoTareaId" type="long" />
+		<field name="nombre" type="String" />
+	</model>
+</model-hints>

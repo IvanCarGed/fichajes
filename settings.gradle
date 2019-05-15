@@ -1,0 +1,1 @@
+include "fichajes-api", "fichajes-service", "fichajes-web", "fichajes-rrhh-web"
